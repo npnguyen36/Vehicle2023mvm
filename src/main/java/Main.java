@@ -8,36 +8,46 @@ public class Main {
     public static ArrayList<Vehicle> allVehicles = new ArrayList<>();
     public static void main(String[] args) {
         System.out.println("In Vehicles Main");
+        promptUser();
+        displayOutput();
+    }
+
+    public static void promptUser() {
+
+
         System.out.println("Second Line");
-        String nickname = JOptionPane.showInputDialog("What is the nickname of this vehicle?");
 
-        Vehicle myVehicle = new Vehicle();
-        myVehicle.setMilesPerGallon(20);
-        myVehicle.setGallonsOfGas(10.0);
-        myVehicle.setOdometer(0);
-        allVehicles.add(myVehicle);
+        int goAgain = JOptionPane.NO_OPTION;
+        do {
+            String nickName = JOptionPane.showInputDialog("Enter the vehicle name:");
 
-        Vehicle yourVehicle = new Vehicle();
-        yourVehicle.setMilesPerGallon(25);
-        yourVehicle.setGallonsOfGas(8.0);
-        yourVehicle.setOdometer(10000);
-        allVehicles.add(yourVehicle);
+            String strMilesPerGallon = JOptionPane.showInputDialog("Enter Mile per Gallon:");
+            int milesPerGallon = Integer.parseInt(strMilesPerGallon);
 
-        Vehicle ourVehicle = new Vehicle();
-        ourVehicle.setMilesPerGallon(15);
-        ourVehicle.setGallonsOfGas(12.0);
-        ourVehicle.setOdometer(20000);
-        allVehicles.add(ourVehicle);
-
-        drive(100);
-        drive(60);
+            Vehicle vehicle = new Vehicle();
+            vehicle.setMilesPerGallon(milesPerGallon);
+            String strGallonOfGas = JOptionPane.showInputDialog("Enter Gallon of Gas:");
+            double gallonOfGas = Integer.parseInt(strGallonOfGas);
+            vehicle.setGallonsOfGas(gallonOfGas);
+            String StrOdometer = JOptionPane.showInputDialog("Enter Odometer:");
+            int odemeter = Integer.parseInt(StrOdometer);
+            vehicle.setOdometer(odemeter);
+            allVehicles.add(vehicle);
+            goAgain = JOptionPane.showConfirmDialog(null, "Do you want to enter another vehicle?", "Go Again?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        } while (goAgain == JOptionPane.YES_OPTION);
 
     }
-    private static void drive(int milesDriven){
-        for(Vehicle vehicle: allVehicles){
-            System.out.println(" Odometer " + vehicle.getOdometer() + " Gallons of Gas " + vehicle.getGallonsOfGas());
-            vehicle.go(milesDriven);
-            System.out.println(" Odometer " + vehicle.getOdometer() + " Gallons of Gas " + vehicle.getGallonsOfGas());
-        }
+
+    
+    private static void displayOutput() {
+        do {
+            String stringMilesDriven = JOptionPane.showInputDialog("Enter Miles Driven");
+            int milesDriven = Integer.parseInt(stringMilesDriven);
+            for (Vehicle vehicle : allVehicles) {
+                System.out.println(" Odometer " + vehicle.getOdometer() + " Gallons of Gas " + vehicle.getGallonsOfGas());
+                vehicle.go(milesDriven);
+                System.out.println(" Odometer " + vehicle.getOdometer() + " Gallons of Gas " + vehicle.getGallonsOfGas());
+            }
+}while(JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(null, "Do you want another trips?", "Go Again?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE));
     }
 }
